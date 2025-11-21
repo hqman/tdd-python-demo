@@ -13,6 +13,23 @@ def format_json(data, pretty=False):
     Returns:
         JSON string representation of data
     """
-    if pretty:
-        return json.dumps(data, indent=2)
-    return json.dumps(data)
+    indent = 2 if pretty else None
+    return json.dumps(data, indent=indent)
+
+
+def format_human(video_info):
+    """Format video information as human-readable text.
+
+    Args:
+        video_info: Dictionary containing video information
+
+    Returns:
+        Human-readable string with video details
+    """
+    lines = [
+        f"Title: {video_info.get('title', 'N/A')}",
+        f"Channel: {video_info.get('channel', 'N/A')}",
+        f"Views: {video_info.get('views', 'N/A')}",
+        f"Likes: {video_info.get('likes', 'N/A')}"
+    ]
+    return "\n".join(lines)

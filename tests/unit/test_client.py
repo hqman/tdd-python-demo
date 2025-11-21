@@ -225,3 +225,22 @@ class TestListComments:
                 "pageToken": "token_abc"
             }
         )
+
+
+class TestGetAllComments:
+    """Test get_all_comments() method."""
+
+    @patch.object(YouTubeClient, 'list_comments')
+    def test_get_all_comments_single_page(self, mock_list_comments):
+        """Test get_all_comments with no pagination needed."""
+        mock_list_comments.return_value = (
+            [{"id": "comment1"}, {"id": "comment2"}],
+            None
+        )
+
+        client = YouTubeClient(api_keys="test_key")
+        all_comments = client.get_all_comments("video123")
+
+        assert len(all_comments) == 2
+        assert all_comments[0]["id"] == "comment1"
+        mock_list_comments.assert_called_once_with("video123", page_size=100, page_token=None)

@@ -28,8 +28,11 @@ class YouTubeClient:
             params['key'] = self.key
             try:
                 response = requests.get(url, params=params, timeout=20)
-                if response.status_code == 403 and self._rotate_key():
-                    continue
+                if response.status_code in (403, 429):
+                    if self._rotate_key():
+                        continue
+                    else:
+                        raise Exception(f"All API keys exhausted. Quota limit reached.")
                 return response.json()
             except requests.exceptions.RequestException:
                 if attempt < max_retries - 1:
@@ -44,3 +47,19 @@ class YouTubeClient:
             self.key = self.keys[self._current_key_index]
             return True
         return False
+
+    def list_comments(self, video_id, page_size=100, max_comments=200, page_token=None):
+        """Fetch comments for a video with pagination support."""
+        url = "https://www.googleapis.com/youtube/v3/commentThreads"
+        params = {
+            "part": "snippet",
+            "videoId": video_id,
+            "maxResults": page_size,
+            "textFormat": "plainText"
+        }
+        if page_token:
+            params["pageToken"] = page_token
+        response = self.request(url, params)
+        comments = response.get("items", [])
+        next_page_token = response.get("nextPageToken")
+        return comments, next_page_token

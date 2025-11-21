@@ -1,30 +1,75 @@
 {
   "testModules": [
     {
-      "moduleId": "tests/test_client.py",
+      "moduleId": "tests/unit/test_client.py",
       "tests": [
         {
+          "name": "test_init_with_single_key",
+          "fullName": "tests/unit/test_client.py::TestYouTubeClientInitialization::test_init_with_single_key",
+          "state": "passed"
+        },
+        {
+          "name": "test_init_with_multiple_keys",
+          "fullName": "tests/unit/test_client.py::TestYouTubeClientInitialization::test_init_with_multiple_keys",
+          "state": "passed"
+        },
+        {
+          "name": "test_init_with_keys_containing_whitespace",
+          "fullName": "tests/unit/test_client.py::TestYouTubeClientInitialization::test_init_with_keys_containing_whitespace",
+          "state": "passed"
+        },
+        {
+          "name": "test_to_int_with_valid_string",
+          "fullName": "tests/unit/test_client.py::TestUtilityMethods::test_to_int_with_valid_string",
+          "state": "passed"
+        },
+        {
+          "name": "test_to_int_with_invalid_string",
+          "fullName": "tests/unit/test_client.py::TestUtilityMethods::test_to_int_with_invalid_string",
+          "state": "passed"
+        },
+        {
           "name": "test_request_success",
-          "fullName": "tests/test_client.py::TestRequestMethod::test_request_success",
+          "fullName": "tests/unit/test_client.py::TestRequestMethod::test_request_success",
           "state": "passed"
         },
         {
           "name": "test_request_retry_on_network_error",
-          "fullName": "tests/test_client.py::TestRequestMethod::test_request_retry_on_network_error",
+          "fullName": "tests/unit/test_client.py::TestRequestMethod::test_request_retry_on_network_error",
           "state": "passed"
         },
         {
           "name": "test_request_rotates_key_on_quota_error",
-          "fullName": "tests/test_client.py::TestRequestMethod::test_request_rotates_key_on_quota_error",
+          "fullName": "tests/unit/test_client.py::TestRequestMethod::test_request_rotates_key_on_quota_error",
           "state": "passed"
         },
         {
           "name": "test_request_rotates_key_on_429_rate_limit",
-          "fullName": "tests/test_client.py::TestRequestMethod::test_request_rotates_key_on_429_rate_limit",
+          "fullName": "tests/unit/test_client.py::TestRequestMethod::test_request_rotates_key_on_429_rate_limit",
+          "state": "passed"
+        },
+        {
+          "name": "test_request_raises_error_when_all_keys_exhausted",
+          "fullName": "tests/unit/test_client.py::TestRequestMethod::test_request_raises_error_when_all_keys_exhausted",
+          "state": "passed"
+        },
+        {
+          "name": "test_list_comments_basic",
+          "fullName": "tests/unit/test_client.py::TestListComments::test_list_comments_basic",
+          "state": "passed"
+        },
+        {
+          "name": "test_list_comments_with_page_token",
+          "fullName": "tests/unit/test_client.py::TestListComments::test_list_comments_with_page_token",
+          "state": "passed"
+        },
+        {
+          "name": "test_get_all_comments_single_page",
+          "fullName": "tests/unit/test_client.py::TestGetAllComments::test_get_all_comments_single_page",
           "state": "failed",
           "errors": [
             {
-              "message": "self = <test_client.TestRequestMethod object at 0x103d502b0>\nmock_get = <MagicMock name='get' id='4359637376'>\nmock_sleep = <MagicMock name='sleep' id='4359637712'>\n\n    @patch('tdd_python_demo.youtube_api.client.time.sleep')\n    @patch('tdd_python_demo.youtube_api.client.requests.get')\n    def test_request_rotates_key_on_429_rate_limit(self, mock_get, mock_sleep):\n        \"\"\"Test request rotates to next API key on 429 rate limit error.\"\"\"\n        mock_response_429 = Mock()\n        mock_response_429.status_code = 429\n        mock_response_429.json.return_value = {\"error\": {\"code\": 429}}\n    \n        mock_response_success = Mock()\n        mock_response_success.status_code = 200\n        mock_response_success.json.return_value = {\"success\": True}\n    \n        mock_get.side_effect = [mock_response_429, mock_response_success]\n    \n        client = YouTubeClient(api_keys=\"key1,key2,key3\")\n        result = client.request(\"https://api.example.com/test\", {})\n    \n>       assert result == {\"success\": True}\nE       AssertionError: assert {'error': {'code': 429}} == {'success': True}\nE         \nE         Left contains 1 more item:\nE         {'error': {'code': 429}}\nE         Right contains 1 more item:\nE         {'success': True}\nE         \nE         Full diff:...\nE         \nE         ...Full output truncated (6 lines hidden), use '-vv' to show\n\ntests/test_client.py:121: AssertionError"
+              "message": "self = <unit.test_client.TestGetAllComments object at 0x10e21aad0>\nmock_list_comments = <MagicMock name='list_comments' id='4532770464'>\n\n    @patch.object(YouTubeClient, 'list_comments')\n    def test_get_all_comments_single_page(self, mock_list_comments):\n        \"\"\"Test get_all_comments with no pagination needed.\"\"\"\n        mock_list_comments.return_value = (\n            [{\"id\": \"comment1\"}, {\"id\": \"comment2\"}],\n            None\n        )\n    \n        client = YouTubeClient(api_keys=\"test_key\")\n>       all_comments = client.get_all_comments(\"video123\")\n                       ^^^^^^^^^^^^^^^^^^^^^^^\nE       AttributeError: 'YouTubeClient' object has no attribute 'get_all_comments'\n\ntests/unit/test_client.py:242: AttributeError"
             }
           ]
         }

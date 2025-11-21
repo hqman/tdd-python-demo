@@ -2,7 +2,7 @@
 
 import json
 import pytest
-from tdd_python_demo.youtube_api.formatter import format_json
+from tdd_python_demo.youtube_api.formatter import format_json, format_human
 
 
 class TestFormatJson:
@@ -30,3 +30,25 @@ class TestFormatJson:
         # Should still be valid JSON
         parsed = json.loads(result)
         assert parsed == data
+
+
+class TestFormatHuman:
+    """Tests for format_human function."""
+
+    def test_format_human_basic_video_info(self):
+        """Test format_human with basic video information."""
+        video_info = {
+            "title": "Test Video",
+            "channel": "Test Channel",
+            "views": 1000,
+            "likes": 50
+        }
+        result = format_human(video_info)
+
+        # Should be a string
+        assert isinstance(result, str)
+        # Should contain all the key information
+        assert "Test Video" in result
+        assert "Test Channel" in result
+        assert "1000" in result or "1,000" in result
+        assert "50" in result
