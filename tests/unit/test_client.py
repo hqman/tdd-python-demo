@@ -141,6 +141,24 @@ class TestRequestMethod:
         assert "quota" in str(exc_info.value).lower() or "exhausted" in str(exc_info.value).lower()
         assert mock_get.call_count == 3
 
+    @patch('tdd_python_demo.youtube_api.client.time.sleep')
+    @patch('tdd_python_demo.youtube_api.client.requests.get')
+    def test_request_raises_error_on_single_key_quota_exceeded(self, mock_get, mock_sleep):
+        """Test request raises error immediately when single API key hits quota."""
+        mock_response_403 = Mock()
+        mock_response_403.status_code = 403
+        mock_response_403.json.return_value = {"error": {"code": 403, "message": "quotaExceeded"}}
+
+        mock_get.return_value = mock_response_403
+
+        client = YouTubeClient(api_keys="single_key")
+
+        with pytest.raises(Exception) as exc_info:
+            client.request("https://api.example.com/test", {})
+
+        assert "quota" in str(exc_info.value).lower() or "exhausted" in str(exc_info.value).lower()
+        assert mock_get.call_count == 1  # Should only try once with single key
+
 
 @pytest.mark.skip(reason="Not part of current task - will implement later")
 class TestGetVideoStatistics:

@@ -63,3 +63,7 @@ class YouTubeClient:
         comments = response.get("items", [])
         next_page_token = response.get("nextPageToken")
         return comments, next_page_token
+
+    def get_all_comments(self, video_id, page_size=100):
+        """Fetch all comments for a video using pagination."""
+        pass

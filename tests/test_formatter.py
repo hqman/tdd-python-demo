@@ -2,7 +2,7 @@
 
 import json
 import pytest
-from tdd_python_demo.youtube_api.formatter import format_json, format_human
+from tdd_python_demo.youtube_api.formatter import format_json, format_human, format_table
 
 
 class TestFormatJson:
@@ -52,3 +52,15 @@ class TestFormatHuman:
         assert "Test Channel" in result
         assert "1000" in result or "1,000" in result
         assert "50" in result
+
+    def test_format_human_with_missing_values(self):
+        """Test format_human handles missing values gracefully."""
+        video_info = {
+            "title": "Test Video"
+            # Other fields missing
+        }
+        result = format_human(video_info)
+
+        assert isinstance(result, str)
+        assert "Test Video" in result
+        assert "N/A" in result  # Should show N/A for missing fields
