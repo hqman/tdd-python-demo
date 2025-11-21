@@ -1,0 +1,11 @@
+{
+  "session_id": "1431093c-eee2-4bb1-8ba7-240863ad2eed",
+  "transcript_path": "/Users/bella/.claude/projects/-Users-bella-projects-ai-tdd-python-demo/1431093c-eee2-4bb1-8ba7-240863ad2eed.jsonl",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "Edit",
+  "tool_input": {
+    "file_path": "/Users/bella/projects/ai/tdd-python-demo/src/tdd_python_demo/youtube_api/client.py",
+    "old_string": "            try:\n                response = requests.get(url, params=params, timeout=20)\n                if response.status_code == 403 and self._rotate_key():\n                    continue\n                return response.json()",
+    "new_string": "            try:\n                response = requests.get(url, params=params, timeout=20)\n                if response.status_code in (403, 429) and self._rotate_key():\n                    continue\n                return response.json()"
+  }
+}

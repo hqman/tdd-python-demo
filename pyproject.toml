@@ -1,0 +1,33 @@
+[project]
+name = "tdd-python-demo"
+version = "0.1.0"
+description = "A TDD Python pytest demo project"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.0",
+    "tdd-guard-pytest>=0.1.2",
+]
+
+[project.scripts]
+md-toc = "tdd_python_demo.cli_toc:main"
+calculator = "tdd_python_demo.cli_calculator:main"
+yt-fetch = "tdd_python_demo.youtube_api.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+]
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: tests that call the real YouTube Data API",
+    "e2e: end-to-end CLI tests hitting the real API",
+]
+tdd_guard_project_root = "/Users/bella/projects/ai/tdd-python-demo"
