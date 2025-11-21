@@ -247,7 +247,7 @@ Basic usage:
 
 
 md-toc path/to/file.md
-你自己做 e2e 测试 保证 命令能运行 使用 真实的 test.md 文件测试
+You should implement e2e tests yourself to ensure the command runs, using the real test.md file for testing.
 
-最终目标是 命令能跑出正确的 TOC
-需要 一个 可视化 缩进 的功能 with_tree_format
+The ultimate goal is for the command to produce the correct TOC.
+A visual indentation feature `with_tree_format` is required.

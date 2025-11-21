@@ -14,6 +14,7 @@ dependencies = [
 md-toc = "tdd_python_demo.cli_toc:main"
 calculator = "tdd_python_demo.cli_calculator:main"
 yt-fetch = "tdd_python_demo.youtube_api.cli:main"
+yt-channel = "tdd_python_demo.youtube_api.cli_channel:main"
 
 [build-system]
 requires = ["hatchling"]

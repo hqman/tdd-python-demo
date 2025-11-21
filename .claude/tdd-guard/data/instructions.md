@@ -1,12 +1,11 @@
 ## TDD Fundamentals
-不 是改 python 代码 不要写测试了!!!
-不 是改 python 代码 不要写测试了!!!
+If not modifying Python code, skip writing tests!!!
 ### The TDD Cycle
 The foundation of TDD is the Red-Green-Refactor cycle:
 
 1. **Red Phase**: Write ONE failing test that describes desired behavior
    - The test must fail for the RIGHT reason (not syntax/import errors)
-   - Only one test at a time - this is critical for TDD discipline,如果有多个测试，先做第一个,把其余的测试添加到 todo 使用 TodoWrite 更新tasks!!!
+   - Only one test at a time - this is critical for TDD discipline. If there are multiple tests, do the first one, and add the rest to the todo list using TodoWrite to update tasks!!!
    - **Adding a single test to a test file is ALWAYS allowed** - no prior test output needed
    - Starting TDD for a new feature is always valid, even if test output shows unrelated work
 
