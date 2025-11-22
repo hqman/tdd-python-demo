@@ -1,0 +1,11 @@
+{
+  "session_id": "8287bda2-07a9-4502-84a7-ececfe191d7d",
+  "transcript_path": "/Users/bella/.claude/projects/-Users-bella-projects-ai-tdd-python-demo/8287bda2-07a9-4502-84a7-ececfe191d7d.jsonl",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "Edit",
+  "tool_input": {
+    "file_path": "/Users/bella/projects/ai/tdd-python-demo/tests/test_e2e_cli.py",
+    "old_string": "        # Run CLI with tree format\n        result = subprocess.run(\n            ['tdd-toc', temp_file, '--format=tree'],\n            capture_output=True,\n            text=True,\n            check=True\n        )",
+    "new_string": "        # Run CLI with tree format\n        result = subprocess.run(\n            ['md-toc', temp_file, '--format=tree'],\n            capture_output=True,\n            text=True,\n            check=True\n        )"
+  }
+}

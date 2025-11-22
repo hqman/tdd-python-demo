@@ -42,7 +42,7 @@ Final section.
     try:
         # Run the actual CLI command using subprocess
         result = subprocess.run(
-            ['tdd-toc', temp_file],
+            ['md-toc', temp_file],
             capture_output=True,
             text=True,
             check=True
@@ -93,7 +93,7 @@ def test_e2e_cli_with_tree_format():
     try:
         # Run CLI with tree format
         result = subprocess.run(
-            ['tdd-toc', temp_file, '--format=tree'],
+            ['md-toc', temp_file, '--format=tree'],
             capture_output=True,
             text=True,
             check=True
